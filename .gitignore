@@ -1,7 +1,6 @@
 
 /logs
-/src/main/resources/application-dev.yaml
-/src/main/resources/application-dev.yml
+/src/main/resources/application-dev.*
 HELP.md
 target/
 .mvn/wrapper/maven-wrapper.jar

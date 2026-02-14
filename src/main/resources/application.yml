@@ -2,6 +2,8 @@ server:
   port: ${PORT:8080}
 
 spring:
+  flyway:
+    enabled: true
   profiles:
     active: ${SPRING_PROFILE_ACTIVE:dev}
   application:
@@ -42,11 +44,11 @@ spring:
 #      secret: my-super-secret-key
 #      expiration: 3600000 # 1 hour in ms
 
-logging:
-  level:
-    org.springframework.security: INFO
-    org.hibernate.SQL: DEBUG
-    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+#logging:
+#  level:
+#    org.springframework.security: INFO
+#    org.hibernate.SQL: DEBUG
+#    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
 
 springdoc:
   swagger-ui:

@@ -1,3 +1,7 @@
+-- =========================================
+-- V1 - Create products and product_tags
+-- =========================================
+
 CREATE TABLE products (
     id UUID PRIMARY KEY,
 
@@ -27,6 +31,19 @@ CREATE TABLE products (
     deleted_at TIMESTAMP
 );
 
+CREATE TABLE product_tags (
+    product_id UUID NOT NULL,
+    tag VARCHAR(255) NOT NULL,
+
+    PRIMARY KEY (product_id, tag),
+
+    CONSTRAINT fk_product_tags_product
+        FOREIGN KEY (product_id)
+        REFERENCES products(id)
+        ON DELETE CASCADE
+);
+
+-- Indexes
 CREATE INDEX idx_products_price ON products(price);
 CREATE INDEX idx_products_category ON products(category);
 CREATE INDEX idx_products_brand ON products(brand);
