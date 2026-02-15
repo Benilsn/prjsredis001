@@ -2,8 +2,8 @@ package dev.prj.prjsredis001.infra.controller;
 
 import dev.prj.prjsredis001.app.dto.ProductDTO;
 import dev.prj.prjsredis001.app.service.ProductService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
-@RequestMapping(name = "/v1/products")
+@RequestMapping(path = "/products")
+@Tag(name = "Products", description = "Operations related to products")
 public class ProductController {
 
   private final ProductService productService;
@@ -21,7 +22,11 @@ public class ProductController {
     this.productService = productService;
   }
 
-  @GetMapping(name = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+  @Operation(
+    summary = "List all products",
+    description = "Returns a list of all products available in the system"
+  )
+  @GetMapping(path = "/", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<List<ProductDTO>> listProducts() {
     List<ProductDTO> products = productService.getAllProducts();
 
