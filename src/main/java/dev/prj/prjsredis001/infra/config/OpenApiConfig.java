@@ -6,7 +6,6 @@ import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.info.License;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.context.annotation.Configuration;
-import io.swagger.v3.oas.annotations.servers.Server;
 
 @Configuration
 @OpenAPIDefinition(
@@ -23,9 +22,6 @@ import io.swagger.v3.oas.annotations.servers.Server;
       url = "https://www.apache.org/licenses/LICENSE-2.0.html"
     )
   ),
-  servers = {
-    @Server(url = "http://localhost:8080", description = "Local development server")
-  },
   tags = {
     @Tag(name = "Products", description = "Operations about products")
   }

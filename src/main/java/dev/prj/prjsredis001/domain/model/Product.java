@@ -3,6 +3,7 @@ package dev.prj.prjsredis001.domain.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -27,10 +28,10 @@ public class Product {
   @Column(nullable = false)
   private BigDecimal price;
 
-  @Column(nullable = false)
+  @Column(name = "cost_price", nullable = false)
   private BigDecimal costPrice;
 
-  @Column(nullable = false)
+  @Column(name="stock_quantity", nullable=false)
   private Integer stockQuantity;
 
   @Column(nullable = false)
@@ -39,7 +40,7 @@ public class Product {
   @Column(nullable = false)
   private Double rating;
 
-  @Column(nullable = false)
+  @Column(name = "review_count", nullable = false)
   private Integer reviewCount;
 
   @Column(nullable = false)
@@ -53,7 +54,7 @@ public class Product {
 
   @ElementCollection
   @CollectionTable(name = "product_tags", joinColumns = @JoinColumn(name = "product_id"))
-  @Column(name = "tag")
+  @Column(name = "tag", nullable = false)
   private Set<String> tags;
 
   private Double weight;
@@ -64,12 +65,13 @@ public class Product {
 
   private Double length;
 
-  @Column(nullable = false)
+  @Column(name="created_at", nullable=false)
   private LocalDateTime createdAt;
 
-  @Column(nullable = false)
+  @Column(name="updated_at", nullable=false)
   private LocalDateTime updatedAt;
 
+  @Column(name="deleted_at")
   private LocalDateTime deletedAt;
 
 }

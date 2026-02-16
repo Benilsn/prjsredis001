@@ -1,52 +1,52 @@
----- =========================================
----- V1 - Create products and product_tags
----- =========================================
---
---CREATE TABLE products (
---    id UUID PRIMARY KEY,
---
---    name VARCHAR(150) NOT NULL,
---    description VARCHAR(500),
---
---    price NUMERIC(15,2) NOT NULL,
---    cost_price NUMERIC(15,2) NOT NULL,
---
---    stock_quantity INTEGER NOT NULL,
---    active BOOLEAN NOT NULL DEFAULT TRUE,
---
-----    rating DOUBLE PRECISION NOT NULL DEFAULT 0,
---    review_count INTEGER NOT NULL DEFAULT 0,
---
---    sku VARCHAR(100) NOT NULL UNIQUE,
---    brand VARCHAR(100) NOT NULL,
---    category VARCHAR(100) NOT NULL,
---
---    weight DOUBLE PRECISION,
---    height DOUBLE PRECISION,
---    width DOUBLE PRECISION,
---    length DOUBLE PRECISION,
---
---    created_at TIMESTAMP NOT NULL,
---    updated_at TIMESTAMP NOT NULL,
---    deleted_at TIMESTAMP
---);
---
---CREATE TABLE product_tags (
---    product_id UUID NOT NULL,
---    tag VARCHAR(255) NOT NULL,
---
---    PRIMARY KEY (product_id, tag),
---
---    CONSTRAINT fk_product_tags_product
---        FOREIGN KEY (product_id)
---        REFERENCES products(id)
---        ON DELETE CASCADE
---);
---
----- Indexes
---CREATE INDEX idx_products_price ON products(price);
---CREATE INDEX idx_products_category ON products(category);
---CREATE INDEX idx_products_brand ON products(brand);
---CREATE INDEX idx_products_active ON products(active);
---CREATE INDEX idx_products_rating ON products(rating);
---CREATE INDEX idx_products_created_at ON products(created_at);
+-- =========================================
+-- V1 - Create products and product_tags
+-- =========================================
+
+CREATE TABLE products (
+    id UUID PRIMARY KEY,
+
+    name VARCHAR(150) NOT NULL,
+    description VARCHAR(500),
+
+    price NUMERIC(15,2) NOT NULL,
+    cost_price NUMERIC(15,2) NOT NULL,
+
+    stock_quantity INTEGER NOT NULL,
+    active BOOLEAN NOT NULL DEFAULT TRUE,
+
+    rating DOUBLE PRECISION NOT NULL DEFAULT 0,
+    review_count INTEGER NOT NULL DEFAULT 0,
+
+    sku VARCHAR(100) NOT NULL UNIQUE,
+    brand VARCHAR(100) NOT NULL,
+    category VARCHAR(100) NOT NULL,
+
+    weight DOUBLE PRECISION,
+    height DOUBLE PRECISION,
+    width DOUBLE PRECISION,
+    length DOUBLE PRECISION,
+
+    created_at TIMESTAMP NOT NULL,
+    updated_at TIMESTAMP NOT NULL,
+    deleted_at TIMESTAMP
+);
+
+CREATE TABLE product_tags (
+    product_id UUID NOT NULL,
+    tag VARCHAR(255) NOT NULL,
+
+    PRIMARY KEY (product_id, tag),
+
+    CONSTRAINT fk_product_tags_product
+        FOREIGN KEY (product_id)
+        REFERENCES products(id)
+        ON DELETE CASCADE
+);
+
+-- Indexes
+CREATE INDEX idx_products_price ON products(price);
+CREATE INDEX idx_products_category ON products(category);
+CREATE INDEX idx_products_brand ON products(brand);
+CREATE INDEX idx_products_active ON products(active);
+CREATE INDEX idx_products_rating ON products(rating);
+CREATE INDEX idx_products_created_at ON products(created_at);

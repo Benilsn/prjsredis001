@@ -21,14 +21,14 @@ spring:
     name: products-api
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/products
+    url: jdbc:postgresql://localhost:5432/admin
     username: ${DATASOURCE_USERNAME:admin}
     password: ${DATASOURCE_PASSWORD}
     driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
-      ddl-auto: update   # use update for dev if needed
+      ddl-auto: validate
     show-sql: true
     properties:
       hibernate:
@@ -52,6 +52,7 @@ spring:
 logging:
   level:
     org.flywaydb: DEBUG
+    org.springframework.boot.autoconfigure.flyway: DEBUG
 
 springdoc:
   swagger-ui:
