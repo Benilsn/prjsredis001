@@ -35,14 +35,11 @@ spring:
         format_sql: true
     open-in-view: false
 
-  redis:
-    host: ${REDIS_HOST:localhost}
-    port: ${REDIS_PORT:6379}
-    timeout: 6000
-  cache:
-    type: redis
+  data:
     redis:
-      time-to-live: 600000   # 10 minutes
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      timeout: 6000
 
 #  security:
 #    jwt:
@@ -51,6 +48,7 @@ spring:
 
 logging:
   level:
+    root: ${ROOT_LOG_LEVEL:INFO}
     org.flywaydb: DEBUG
     org.springframework.boot.autoconfigure.flyway: DEBUG
 
