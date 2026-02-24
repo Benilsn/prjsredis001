@@ -6,10 +6,8 @@ import dev.prj.prjsredis001.app.mapper.ProductMapper;
 import dev.prj.prjsredis001.domain.model.Product;
 import dev.prj.prjsredis001.infra.error.ProductNotFoundException;
 import dev.prj.prjsredis001.infra.repository.ProductRepository;
-import org.springframework.beans.BeanUtils;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.redis.stream.StreamListener;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

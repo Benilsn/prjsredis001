@@ -47,10 +47,17 @@ spring:
 #      expiration: 3600000 # 1 hour in ms
 
 logging:
+  group:
+    java: io.netty
+    web: org.springframework,org.apache.coyote,io.github.resilience4j,org.jboss.logging
+    cache: io.lettuce.core
+    db: org.hibernate,com.zaxxer.hikari,org.flywaydb.core,org.postgresql.jdbc
   level:
     root: ${ROOT_LOG_LEVEL:INFO}
-    org.flywaydb: WARN
-    org.springframework.boot.autoconfigure.flyway: WARN
+    web: INFO
+    db: INFO
+    java: INFO
+    cache: INFO
 
 springdoc:
   swagger-ui:
