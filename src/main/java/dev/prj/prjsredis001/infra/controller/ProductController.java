@@ -1,5 +1,6 @@
 package dev.prj.prjsredis001.infra.controller;
 
+import dev.prj.prjsredis001.app.dto.ParcialProductDTO;
 import dev.prj.prjsredis001.app.dto.ProductDTO;
 import dev.prj.prjsredis001.app.service.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -8,6 +9,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -27,8 +29,8 @@ public class ProductController {
     description = "Returns a list of all products available in the system"
   )
   @GetMapping(path = "/")
-  public ResponseEntity<List<ProductDTO>> listProducts() {
-    List<ProductDTO> products = productService.getAllProducts();
+  public ResponseEntity<List<ProductDTO>> listProducts(@RequestParam(name = "includeDeleted", defaultValue = "false") boolean includeDeleted) {
+    List<ProductDTO> products = productService.getAllProducts(includeDeleted);
 
     return ResponseEntity.ok().body(products);
   }
@@ -46,11 +48,30 @@ public class ProductController {
 
   @Operation(
     summary = "Insert a product",
-    description = "Insert a product into the system."
+    description = "Insert a product into database."
   )
   @PostMapping(path = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<ProductDTO> insertProduct(@Valid @RequestBody ProductDTO product) {
     return ResponseEntity.ok().body(productService.insertOne(product));
+  }
+
+  @Operation(
+    summary = "Update any information for a product",
+    description = "Update a product."
+  )
+  @PutMapping(path = "/{productId}", consumes = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<ProductDTO> updateProduct(@PathVariable UUID productId, @Valid @RequestBody ParcialProductDTO product) {
+    return ResponseEntity.ok(productService.updateOne(productId, product));
+  }
+
+  @Operation(
+    summary = "Delete a product",
+    description = "Soft/Hard delete a product from database."
+  )
+  @DeleteMapping("/{productId}")
+  public ResponseEntity<Void> deleteProduct(@PathVariable UUID productId, @RequestParam(name = "hardDelete", defaultValue = "false") boolean hardDelete) {
+    productService.deleteOne(productId, hardDelete);
+    return ResponseEntity.noContent().build();
   }
 
 

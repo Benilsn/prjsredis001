@@ -5,9 +5,7 @@ import jakarta.persistence.Column;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.Set;
 
 @Getter
@@ -109,7 +107,4 @@ public class ProductDTO {
   @DecimalMin(value = "0.0", message = "Length cannot be negative")
   private Double length;
 
-  @Schema(description = "Date and time when the product was created",
-    example = "2025-02-14T10:15:30")
-  private LocalDateTime createdAt;
 }

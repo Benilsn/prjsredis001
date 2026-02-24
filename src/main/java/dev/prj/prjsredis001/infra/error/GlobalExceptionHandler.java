@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
 import java.time.OffsetDateTime;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -52,16 +53,27 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     return ResponseEntity.badRequest().body(body);
   }
 
+  @ExceptionHandler(ProductNotFoundException.class)
+  public ResponseEntity<Map<String, Object>> handleProductException(Exception ex, HttpServletRequest request
+  ) {
+    Map<String, Object> body = new LinkedHashMap<>();
+    body.put("timestamp", OffsetDateTime.now().toString());
+    body.put("status", HttpStatus.UNPROCESSABLE_CONTENT.value());
+    body.put("error", HttpStatus.UNPROCESSABLE_CONTENT.toString());
+    body.put("message", ex.getLocalizedMessage());
+    body.put("path", request.getRequestURI());
+
+    return ResponseEntity.status(HttpStatus.UNPROCESSABLE_CONTENT).body(body);
+  }
+
   @ExceptionHandler(Exception.class)
-  public ResponseEntity<Map<String, Object>> handleGeneric(
-    Exception ex,
-    HttpServletRequest request
+  public ResponseEntity<Map<String, Object>> handleGeneric(Exception ex, HttpServletRequest request
   ) {
     Map<String, Object> body = new LinkedHashMap<>();
     body.put("timestamp", OffsetDateTime.now().toString());
     body.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
-    body.put("error", "Internal Server Error");
-    body.put("message", "Unexpected error.");
+    body.put("error", HttpStatus.INTERNAL_SERVER_ERROR.toString());
+    body.put("message", ex.getLocalizedMessage());
     body.put("path", request.getRequestURI());
 
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(body);
