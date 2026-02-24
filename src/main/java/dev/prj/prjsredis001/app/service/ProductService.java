@@ -8,7 +8,6 @@ import dev.prj.prjsredis001.infra.repository.ProductRepository;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -17,16 +16,18 @@ import java.util.UUID;
 public class ProductService {
 
   private final ProductRepository productRepository;
+  private final ProductMapper productMapper;
 
-  public ProductService(ProductRepository productRepository) {
+  public ProductService(ProductRepository productRepository, ProductMapper productMapper) {
     this.productRepository = productRepository;
+    this.productMapper = productMapper;
   }
 
   @Transactional(readOnly = true)
   public List<ProductDTO> getAllProducts() {
     List<Product> products = productRepository.findAll();
 
-    return ProductMapper.INSTANCE.toDtoList(products);
+    return productMapper.toDtoList(products);
   }
 
   @Cacheable(
@@ -40,13 +41,13 @@ public class ProductService {
 
     return
       product
-        .map(ProductMapper.INSTANCE::toDto)
+        .map(productMapper::toDto)
         .orElseThrow(ProductNotFoundException::new);
   }
 
 
   public ProductDTO insertOne(ProductDTO productDTO) {
-    Product productToInsert = ProductMapper.INSTANCE.toModel(productDTO);
+    Product productToInsert = productMapper.toModel(productDTO);
 
     productRepository.save(productToInsert);
 
