@@ -1,5 +1,6 @@
 package dev.prj.prjsredis001.infra.error;
 
+import io.github.resilience4j.ratelimiter.RequestNotPermitted;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -64,6 +65,17 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     body.put("path", request.getRequestURI());
 
     return ResponseEntity.status(HttpStatus.UNPROCESSABLE_CONTENT).body(body);
+  }
+
+  @ExceptionHandler(RequestNotPermitted.class)
+  public ResponseEntity<Map<String, Object>> handleRateLimiter(RequestNotPermitted ex) {
+    Map<String, Object> body = new LinkedHashMap<>();
+    body.put("timestamp", OffsetDateTime.now().toString());
+    body.put("status", HttpStatus.TOO_MANY_REQUESTS.value());
+    body.put("error", HttpStatus.TOO_MANY_REQUESTS.toString());
+    body.put("message", ex.getLocalizedMessage());
+
+    return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).body(body);
   }
 
   @ExceptionHandler(Exception.class)

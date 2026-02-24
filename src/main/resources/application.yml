@@ -58,3 +58,15 @@ springdoc:
   api-docs:
     enabled: true
     path: /v3/api-docs
+
+resilience4j:
+  ratelimiter:
+    instances:
+      productsRead:
+        limitForPeriod: 60
+        limitRefreshPeriod: 60s
+        timeoutDuration: 0ms
+      productsWrite:
+        limitForPeriod: 10
+        limitRefreshPeriod: 60s
+        timeoutDuration: 0ms
