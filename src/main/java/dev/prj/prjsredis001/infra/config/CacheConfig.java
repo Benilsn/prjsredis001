@@ -1,5 +1,6 @@
 package dev.prj.prjsredis001.infra.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,13 +16,16 @@ import java.time.Duration;
 @EnableCaching
 public class CacheConfig {
 
+  @Value("${data.redis.ttl-in-minutes}")
+  public long ttlInMinutes;
+
   @Bean
   public RedisCacheManager redisCacheManager(RedisConnectionFactory connectionFactory) {
 
     RedisCacheConfiguration config =
       RedisCacheConfiguration
         .defaultCacheConfig()
-        .entryTtl(Duration.ofMinutes(10))
+        .entryTtl(Duration.ofMinutes(ttlInMinutes))
         .disableCachingNullValues()
         .serializeValuesWith(
           RedisSerializationContext.SerializationPair.fromSerializer(RedisSerializer.json()));

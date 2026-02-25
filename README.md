@@ -19,7 +19,6 @@ The goal of this project is to showcase a modern backend setup with containerize
 - Spring Data Redis (Lettuce client)
 - Redis 7
 - Docker Compose
-- Testcontainers
 
 ---
 
@@ -27,13 +26,12 @@ The goal of this project is to showcase a modern backend setup with containerize
 
 - Redis integration using Spring Data Redis
 - Containerized Redis via Docker Compose
-- Integration tests using Testcontainers
 - Clean and minimal project structure
 - Production-ready dependency setup
 
 ---
 
-## 🐳 Running Redis with Docker Compose
+## 🐳 Running Redis and Database with Docker Compose
 
 Make sure Docker is installed.
 
