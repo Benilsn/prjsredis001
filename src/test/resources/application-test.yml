@@ -1,0 +1,21 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        format_sql: true
+  cache:
+    type: redis
+
+resilience4j:
+  ratelimiter:
+    instances:
+      productsRead:
+        limitForPeriod: 10000
+        limitRefreshPeriod: 1s
+        timeoutDuration: 0ms
+      productsWrite:
+        limitForPeriod: 10000
+        limitRefreshPeriod: 1s
+        timeoutDuration: 0ms

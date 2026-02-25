@@ -1,8 +1,8 @@
-# Redis Demo - Spring Boot 3
+# Redis Demo - Spring Boot 4
 
-This project demonstrates how to build a Spring Boot 3 application using:
+This project demonstrates how to build a Spring Boot 4 application using:
 
-- Java 21
+- Java 24
 - Spring Data Redis
 - Redis
 - Docker Compose
@@ -14,12 +14,11 @@ The goal of this project is to showcase a modern backend setup with containerize
 
 ## 🚀 Tech Stack
 
-- Java 21
-- Spring Boot 3
+- Java 24
+- Spring Boot 4
 - Spring Data Redis (Lettuce client)
 - Redis 7
 - Docker Compose
-- Testcontainers
 
 ---
 
@@ -27,13 +26,12 @@ The goal of this project is to showcase a modern backend setup with containerize
 
 - Redis integration using Spring Data Redis
 - Containerized Redis via Docker Compose
-- Integration tests using Testcontainers
 - Clean and minimal project structure
 - Production-ready dependency setup
 
 ---
 
-## 🐳 Running Redis with Docker Compose
+## 🐳 Running Redis and Database with Docker Compose
 
 Make sure Docker is installed.
 
